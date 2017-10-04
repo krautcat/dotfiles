@@ -1,0 +1,7 @@
+AddKeysToAgent yes
+
+Host tizen review.tizen.org
+Hostname review.tizen.org
+IdentityFile ~/.ssh/open-source/tizen_gerrit_rsa
+User krautcat
+Port 29418
