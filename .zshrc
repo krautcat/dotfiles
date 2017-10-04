@@ -27,13 +27,31 @@ export AVRDUDE_CONF="/etc/avrdude.conf"
 # Python environment
 # pyenv and pyenv-virtualenv things
 export PYENV_ROOT=${HOME}/.envs/pyenv
-export PATH=${PYENV_ROOT}/bin:${PATH}
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+PATH="${PYENV_ROOT}/bin:${PATH}"
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# Completion
 source $(pyenv root)/completions/pyenv.zsh
 # ----------------------------------------- #
+
+if [ -d "${HOME}/.cabal" ]; then
+    # Haskell environment
+    PATH="$HOME/.cabal/bin/:${PATH}"
+
+    setopt SHARE_HISTORY             # Share history between all sessions.
+    setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+    setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+    setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+    setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+    setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+    setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+    setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+    setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+    # ----------------------------------------- #
+fi
 
 # Aliases and user functions
 source ${HOME}/.zsh_aliases
@@ -45,10 +63,10 @@ antigen use oh-my-zsh
 
 antigen bundle git
 antigen bundle pip
-antigen bundle lein
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen theme robbyrussell
 
 antigen apply
 
+export PATH
