@@ -9,11 +9,13 @@ SAVEHIST=9999
 
 export EDITOR=/usr/bin/vim
 
-KRAUTCAT_LOCAL="${HOME}/.local"
-KRAUTCAT_ENV_PATH="${HOME}/.local/env"
-KRAUTCAT_ENV_FILES="${HOME}/.envs"
+export KRAUTCAT_LOCAL="${HOME}/.local"
+export KRAUTCAT_ENV_PATH="${HOME}/.local/env"
+export KRAUTCAT_ENV_FILES="${HOME}/.envs"
 
-#-------- Perl
+PATH="${KRAUTCAT_LOCAL}/bin:${PATH}"
+
+#-------- Perl ----
 # plenv - Perl env manager
 export PLENV_ROOT="${KRAUTCAT_ENV_FILES}/plenv"
 PATH="${KRAUTCAT_ENV_PATH}/plenv/bin:${PATH}"      # for plenv
@@ -21,26 +23,39 @@ PATH="${KRAUTCAT_ENV_PATH}/plenv/bin:${PATH}"      # for plenv
 eval "$(plenv init - zsh)"
 
 # Perl specific envvars
-PERL_MB_OPT="--install_base ${KRAUTCAT_LOCAL}"
-PERL_MM_OPT="INSTALL_BASE=${KRAUTCAT_LOCAL}"
-export PERL_MB_OPT;
-export PERL_MM_OPT;
+if [ -z "$PERL_MM_OPT" ]; then
+    eval $(perl -I"${KRAUTCAT_LOCAL}/lib/perl5" -Mlocal::lib=/home/krautcat/.local | grep -v "PATH")
+fi
+#------------------
 
-#-------- Python
+#-------- Python --
 # pyenv - Python env manager
 export PYENV_ROOT="${KRAUTCAT_ENV_FILES}/pyenv"
-PATH="${PYENV_ROOT}/bin:${PATH}"
+PATH="${KRAUTCAT_ENV_PATH}/pyenv/bin:${PATH}"
 
 eval "$(pyenv init - zsh)"
 eval "$(pyenv virtualenv-init - zsh)"
 
+# Python specific envvars
+PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PYENV_VIRTUALENV_DISABLE_PROMPT
 # source "${PYENV_ROOT}/completions/pyenv.zsh"
+#------------
 
-#-------- Ruby
-PATH="${HOME}/.rvm/bin:${PATH}" # Add RVM to PATH for scripting
+#-------- Ruby ----
+export RBENV_ROOT="${KRAUTCAT_ENV_FILES}/rbenv"
+PATH="${KRAUTCAT_ENV_PATH}/rbenv/bin:${PATH}"
+
+eval "$(rbenv init - zsh)"
+
+# Ruby specific envvars
+GEM_SPEC_CACHE="${KRAUTCAT_LOCAL}/lib/ruby/specs"
+PATH="${KRAUTCAT_LOCAL}/lib/ruby/bin:${PATH}"
+export GEM_SPEC_CACHE
+#------------------
 
 # keychain 
-eval "$(keychain --eval --quiet t420_bitbucket_rsa t420_github_rsa)"
+# eval "$(keychain --eval --quiet t420_bitbucket_rsa t420_github_rsa personal-machines/corsair-obsidian-900d_rsa)"
 
 export ARDUINO_DIR=/usr/share/java/Arduino-1.6.13
 export ARDMK_DIR=${HOME}/.local/share/Arduino-Makefile 
