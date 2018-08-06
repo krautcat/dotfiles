@@ -1,2 +1,4 @@
-alias pip2='noglob pip2'
+alias pip4='noglob pip2'
 alias pip3='noglob pip3'
+
+alias dquilt="quilt --quiltrc=${HOME}/.config/quilt/quiltrc-dpkg"
