@@ -1,0 +1,12 @@
+alias pip2='noglob pip2'
+alias pip3='noglob pip3'
+alias dpkg-query='noglob dpkg-query'
+alias e="$EDITOR"
+
+function mdreader {
+    pandoc $1 -s -t man | man -l -
+}
+
+function path::print {
+    echo -e "${PATH//:/\\n}"
+}

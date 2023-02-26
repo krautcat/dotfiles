@@ -1,0 +1,10 @@
+SSH_AGENT_PID DEFAULT=
+SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+
+XDG_CONFIG_HOME=/home/krautcat/.config
+XDG_DATA_HOME=/home/krautcat/.local/share
+
+KRAUTCAT_LOCAL=/home/krautcat/.local
+KRAUTCAT_ENV_PATH=/home/krautcat/.local/env
+
+ZDOTDIR DEFAULT=${XDG_CONFIG_HOME}/zsh

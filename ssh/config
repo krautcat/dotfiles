@@ -1,0 +1,14 @@
+# For Sailfish OS devices.
+Host 192.168.1.*
+    StrictHostKeyChecking no
+
+Host DO-home-droplet
+    Hostname 206.189.55.28 
+    Port 4400
+    User krautcat
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_yubikey_rsa.pub
+    ForwardAgent yes
+    RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra
+
+IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh

@@ -1,0 +1,137 @@
+set nocompatible              " be iMproved, required filetype off                  " required
+
+set rtp^=$HOME/.config/vim
+set rtp+=$KRAUTCAT_LOCAL/share/vim
+set rtp+=$HOME/.config/vim/after
+
+set packpath^=$KRAUTCAT_LOCAL/.share/vim,$HOME/.config/vim
+set packpath+=$HOME/.config/vim/after,$KRAUTCAT_LOCAL/.share/vim/after
+
+let g:netrw_home = "$KRAUTCAT_LOCAL/share/vim"
+call mkdir($KRAUTCAT_LOCAL."/share/vim/spell", 'p')
+set viewdir=$KRAUTCAT_LOCAL/share/vim/view | call mkdir(&viewdir, 'p')
+
+set backupdir=$HOME/.cache/vim/backup | call mkdir(&backupdir, 'p')
+set directory=$HOME/.cache/vim/swap   | call mkdir(&directory, 'p')
+set undodir=$HOME/.cache/vim/undo     | call mkdir(&undodir,   'p')
+
+if !has('nvim') | set viminfo+="$HOME"./.config/vim/viminfo | endif
+
+call plug#begin("$KRAUTCAT_LOCAL/share/vim/autoload")
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+
+" Plugins
+Plug 'peterhoeg/vim-qml'
+Plug 'hdima/python-syntax'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ervandew/supertab'
+Plug 'joe-skb7/cscope-maps'
+Plug 'vivien/vim-linux-coding-style'
+Plug 'embear/vim-localvimrc'
+Plug 'majutsushi/tagbar'
+
+" Commenting.
+Plug 'preservim/nerdcommenter'
+
+" Compliting
+" Plug 'ycm-core/YouCompleteMe'
+
+" Python
+Plug 'tmhedberg/SimpylFold'
+
+" Node.js.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Svelte.js.
+Plug 'leafOfTree/vim-svelte-plugin'
+
+" Markdown.
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+
+" Bundle with colorschemes. 
+Plug 'flazz/vim-colorschemes'
+Plug 'arcticicestudio/nord-vim'
+
+call plug#end()            " required
+
+" how existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+set laststatus=2
+let g:airline_theme='molokai'
+
+set omnifunc=jedi#completions
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+syntax enable
+
+colorscheme nord
+
+function! MarkWindowSwap()
+    let g:markedWinNum = winnr()
+endfunction
+
+function! DoWindowSwap()
+    "Mark destination
+    let curNum = winnr()
+    let curBuf = bufnr( "%" )
+    exe g:markedWinNum . "wincmd w"
+    "Switch to source and shuffle dest->source
+    let markedBuf = bufnr( "%" )
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' curBuf
+    "Switch to dest and shuffle source->dest
+    exe curNum . "wincmd w"
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' markedBuf 
+endfunction
+
+nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
+nmap <silent> <leader>pw :call DoWindowSwap()<CR>
+
+map <F2> :retab <CR> w! <CR>
+set pastetoggle=<F3>
+
+" Don't ask when load local vimrcfile and do it not in a sandbox
+let g:localvimrc_ask = 0
+let g:localvimrc_sandbox = 0
+
+" ---------------------
+" - YouComleteMe stuff.
+" ---------------------
+" Allow autoload of local .ycm_extra_conf.py.
+let g:ycm_confirm_extra_conf = 0
+
+" Correctly load paths for python if it is pyenv-hosted.
+let g:ycm_python_interpreter_path = system("python")
+let g:ycm_python_sys_path = systemlist("python -c " .. shellescape("import sys; print('\\n'.join(sys.path))"))
+ 
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+
+" Add custom config from `~/.config/YouCompleteMe/global_extra_conf.py`.
+let s:config_path = 
+    \   (!empty($XDG_CONFIG_HOME) ? $XDG_CONFIG_HOME : $HOME .. '/' .. '.config')
+    \       .. '/'
+    \       .. 'YouCompleteMe'
+let s:config_file = s:config_path .. '/' .. 'global_extra_conf.py'
+if !empty(glob(s:config_file))
+    let g:ycm_global_ycm_extra_conf = s:config_file
+endif
+" ---------------------
+
+set background=dark
+set t_Co=256
+
+if &term =~ '256color'
+    " disable Background Color Erase (BCE)
+    set t_ut=
+ endif
