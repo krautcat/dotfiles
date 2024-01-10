@@ -15,7 +15,9 @@ set backupdir=$HOME/.cache/vim/backup | call mkdir(&backupdir, 'p')
 set directory=$HOME/.cache/vim/swap   | call mkdir(&directory, 'p')
 set undodir=$HOME/.cache/vim/undo     | call mkdir(&undodir,   'p')
 
-if !has('nvim') | set viminfo+="$HOME"./.config/vim/viminfo | endif
+if !has('nvim')
+    set viminfo+="$HOME"./.config/vim/viminfo
+endif
 
 call plug#begin("$KRAUTCAT_LOCAL/share/vim/autoload")
 " alternatively, pass a path where Vundle should install plugins
@@ -134,4 +136,4 @@ set t_Co=256
 if &term =~ '256color'
     " disable Background Color Erase (BCE)
     set t_ut=
- endif
+endif
