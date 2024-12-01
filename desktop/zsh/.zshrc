@@ -108,6 +108,15 @@ export VIMINIT="source ~/.config/vim/vimrc"
 export GDBHISTFILE="$XDG_DATA_HOME"/gdb/history
 # ------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------
+# --- Rust ---------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+export RUSTUP_HOME="$KRAUTCAT_LOCAL/env/rust/rustup"
+export CARGO_HOME="$KRAUTCAT_LOCAL/env/rust/cargo"
+PATH="$CARGO_HOME/bin:$PATH"
+# ------------------------------------------------------------------------------
+
+
 # ARDUINO (dunno)
 export ARDMK_DIR="${HOME}/.local/share/Arduino-Makefile"
 export ARDUINO_DIR="/opt/umake/ide/arduino"
@@ -118,7 +127,6 @@ export AVRDUDE_CONF="/etc/avrdude.conf"
 
 PATH=${PATH}:${HOME}/x-tools/armv7-bbb-linux-gnueabihf/bin # Add cross-oolchain for Beaglebone Black
 PATH=${PATH}:${HOME}/.local/share/umake/bin # Ubuntu make installation of Ubuntu Make binary symlink
-PATH=${PATH}:${HOME}/.cargo/bin # cargo
 PATH=${PATH}:/opt/android-studio/bin                    # Android studio bin
 PATH=${PATH}:/opt/pycharm-community-2017/bin            # PyCharm CE 2017 bin
 

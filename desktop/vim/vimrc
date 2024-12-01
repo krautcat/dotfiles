@@ -27,8 +27,7 @@ call plug#begin("$KRAUTCAT_LOCAL/share/vim/autoload")
 " Plugins
 Plug 'peterhoeg/vim-qml'
 Plug 'hdima/python-syntax'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'ervandew/supertab'
 Plug 'joe-skb7/cscope-maps'
 Plug 'vivien/vim-linux-coding-style'
@@ -49,12 +48,15 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Svelte.js.
 Plug 'leafOfTree/vim-svelte-plugin'
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 " Markdown.
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 
 " Bundle with colorschemes. 
 Plug 'flazz/vim-colorschemes'
-Plug 'arcticicestudio/nord-vim'
+Plug 'nordtheme/vim'
 
 call plug#end()            " required
 
@@ -104,6 +106,9 @@ set pastetoggle=<F3>
 let g:localvimrc_ask = 0
 let g:localvimrc_sandbox = 0
 
+" Rust
+let g:rustfmt_autosave = 1 
+
 " ---------------------
 " - YouComleteMe stuff.
 " ---------------------
@@ -137,3 +142,7 @@ if &term =~ '256color'
     " disable Background Color Erase (BCE)
     set t_ut=
 endif
+
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ }

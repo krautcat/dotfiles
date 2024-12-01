@@ -3,8 +3,8 @@ Host 192.168.1.*
     StrictHostKeyChecking no
 
 Host DO-home-droplet
-    Hostname 206.189.55.28 
-    Port 4400
+    Hostname 164.92.176.215
+    Port 22
     User krautcat
     IdentitiesOnly yes
     IdentityFile ~/.ssh/id_yubikey_rsa.pub
