@@ -5,8 +5,6 @@ HISTFILE="${ZDOTDIR:-HOME}/.zsh_history"
 HISTSIZE=9999
 SAVEHIST=9999
 
-export EDITOR="/usr/bin/env vim"
-
 # My zsh completions.
 KRAUTCAT_ZSH_COMP_PATH="$KRAUTCAT_LOCAL/share/zsh/functions/Completion"
 KRAUTCAT_ZSH_KEYB_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/Keybindings"
@@ -29,8 +27,6 @@ setopt COMPLETE_ALIASES
 KRAUTCAT_ZSH_FUNCTIONS="$KRAUTCAT_LOCAL/share/zsh/functions"
 KRAUTCAT_ZSH_COMP_PATH="$KRAUTCAT_ZSH_FUNCTIONS/Completion"
 
-PATH="${KRAUTCAT_LOCAL}/bin:$PATH"          # User-site local bin paths.
-PATH="$KRAUTCAT_LOCAL/local/bin:${PATH}"    # My scripts.
 # -------------------------- #
 
 #------------ Perl -------------
@@ -113,6 +109,7 @@ export GDBHISTFILE="$XDG_DATA_HOME"/gdb/history
 # ------------------------------------------------------------------------------
 export RUSTUP_HOME="$KRAUTCAT_LOCAL/env/rust/rustup"
 export CARGO_HOME="$KRAUTCAT_LOCAL/env/rust/cargo"
+
 PATH="$CARGO_HOME/bin:$PATH"
 # ------------------------------------------------------------------------------
 
@@ -130,12 +127,18 @@ PATH=${PATH}:${HOME}/.local/share/umake/bin # Ubuntu make installation of Ubuntu
 PATH=${PATH}:/opt/android-studio/bin                    # Android studio bin
 PATH=${PATH}:/opt/pycharm-community-2017/bin            # PyCharm CE 2017 bin
 
+# Ubuntu make installation of Ubuntu Make binary symlink
+PATH=/home/krautcat/.local/share/umake/bin:$PATH
+
 source "$KRAUTCAT_ZSH_FUNCTIONS/User/functions.zsh"
 
 export PATH
 
 # Antigen
 source "${HOME}/.local/share/antigen/antigen.zsh"
+
+source "/usr/share/doc/fzf/examples/completion.zsh"
+source "/usr/share/doc/fzf/examples/key-bindings.zsh"
 
 # GPG and SSH agent
 export GPG_TTY="$(tty)"
